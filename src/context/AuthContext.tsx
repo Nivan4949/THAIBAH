@@ -46,8 +46,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     initAuth();
   }, []);
 
-  const login = async (email: string, password?: string, rememberMe = true): Promise<{ success: boolean; error?: string }> => {
+  const login = async (emailOrUsername: string, password?: string, rememberMe = true): Promise<{ success: boolean; error?: string }> => {
     setIsLoading(true);
+
+    const email = emailOrUsername.includes('@')
+      ? emailOrUsername
+      : `${emailOrUsername.toLowerCase()}@thaibahtravels.com`;
 
     if (isSupabaseConfigured && supabase && password) {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -64,7 +68,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const loggedUser: AdminUser = {
           id: data.user.id,
           email: data.user.email || email,
-          name: data.user.user_metadata?.name || 'Thaibah Admin',
+          name: data.user.user_metadata?.name || emailOrUsername,
         };
         setUser(loggedUser);
         if (rememberMe) {
@@ -78,8 +82,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Demo Mode Authentication Fallback
     const demoUser: AdminUser = {
       id: 'admin-demo-001',
-      email: email || 'admin@thaibahtravels.com',
-      name: 'Thaibah Admin Manager',
+      email: email,
+      name: emailOrUsername === 'admin' ? 'Thaibah Admin' : emailOrUsername,
     };
     setUser(demoUser);
     if (rememberMe) {
