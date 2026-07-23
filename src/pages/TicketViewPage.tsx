@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { bookingService } from '../services/bookingService';
-import { settingsService } from '../services/settingsService';
-import { Booking, Setting } from '../types/database';
+import { useSettings } from '../context/SettingsContext';
+import { Booking } from '../types/database';
 import { QRCodeSVG } from 'qrcode.react';
 import html2pdf from 'html2pdf.js';
 import {
@@ -20,9 +20,6 @@ import {
   Mail,
   User,
   Bus,
-  CreditCard,
-  Luggage,
-  Sparkles,
   Award,
   Globe
 } from 'lucide-react';
@@ -32,9 +29,9 @@ export const TicketViewPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const ticketRef = useRef<HTMLDivElement>(null);
+  const { settings } = useSettings();
 
   const [booking, setBooking] = useState<Booking | null>(null);
-  const [settings, setSettings] = useState<Setting | null>(null);
   const [loading, setLoading] = useState(true);
   const [pdfGenerating, setPdfGenerating] = useState(false);
 
@@ -46,13 +43,8 @@ export const TicketViewPage: React.FC = () => {
 
   const loadData = async (bookingId: string) => {
     setLoading(true);
-    const [fetchedBooking, fetchedSettings] = await Promise.all([
-      bookingService.getBookingById(bookingId),
-      settingsService.getSettings(),
-    ]);
-
+    const fetchedBooking = await bookingService.getBookingById(bookingId);
     setBooking(fetchedBooking);
-    setSettings(fetchedSettings);
     setLoading(false);
   };
 
@@ -126,8 +118,10 @@ export const TicketViewPage: React.FC = () => {
         '• Passengers are responsible for their own belongings.',
       ];
 
+  const logoSrc = settings?.logo || '/logo-official.svg';
+
   const qrPayload = JSON.stringify({
-    system: 'Thaibah Travels Official System',
+    system: `${settings.company_name} Official System`,
     booking_id: booking.booking_id,
     guest: booking.guest_name,
     travel_date: booking.travel_date,
@@ -137,7 +131,7 @@ export const TicketViewPage: React.FC = () => {
   });
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-12">
+    <div className="max-w-4xl mx-auto space-y-6 pb-12 font-sans">
       {/* Action Toolbar */}
       <div className="no-print flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 glass-card p-4 rounded-2xl border border-slate-200">
         <button
@@ -190,7 +184,7 @@ export const TicketViewPage: React.FC = () => {
             {/* Logo & Title */}
             <div className="flex items-center gap-4">
               <div className="p-3 bg-white rounded-2xl shadow-md shrink-0">
-                <img src="/logo-official.svg" alt="Thaibah Logo" className="h-12 object-contain" />
+                <img src={logoSrc} alt={settings.company_name} className="h-12 object-contain" />
               </div>
               <div>
                 <div className="text-xs font-extrabold uppercase tracking-widest text-amber-300">
@@ -380,21 +374,21 @@ export const TicketViewPage: React.FC = () => {
         {/* OFFICIAL FOOTER SECTION */}
         <div className="p-6 bg-slate-900 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs">
           <div>
-            <div className="font-extrabold text-sm text-amber-300">{settings?.company_name || 'Thaibah Travels'}</div>
-            <div className="text-slate-300 mt-0.5">{settings?.address || 'Chenguvetty, Kottakkal, Malappuram, Kerala, India'}</div>
+            <div className="font-extrabold text-sm text-amber-300">{settings.company_name || 'Thaibah Travels'}</div>
+            <div className="text-slate-300 mt-0.5">{settings.address || 'Chenguvetty, Kottakkal, Malappuram, Kerala, India'}</div>
             <div className="text-[11px] text-slate-400 mt-1">
-              Operating By: <strong className="text-white">{settings?.operating_by || 'Thaibah Travels Hyderabad'}</strong>
+              Operating By: <strong className="text-white">{settings.operating_by || 'Thaibah Travels Hyderabad'}</strong>
             </div>
           </div>
 
           <div className="text-left sm:text-right space-y-1">
             <div className="flex items-center sm:justify-end gap-1.5 text-slate-200 font-medium">
               <Phone className="w-3.5 h-3.5 text-amber-400" />
-              <span>{settings?.phone || '+91 98765 43210 / +91 94000 12345'}</span>
+              <span>{settings.phone || '+91 98765 43210 / +91 94000 12345'}</span>
             </div>
             <div className="flex items-center sm:justify-end gap-1.5 text-slate-200 font-medium">
               <Mail className="w-3.5 h-3.5 text-amber-400" />
-              <span>{settings?.email || 'info@thaibahtravels.com'}</span>
+              <span>{settings.email || 'info@thaibahtravels.com'}</span>
             </div>
             <div className="flex items-center sm:justify-end gap-1.5 text-amber-300 font-bold text-[11px]">
               <Globe className="w-3.5 h-3.5" />

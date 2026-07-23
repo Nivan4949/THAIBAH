@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
+import { useSettings } from '../../context/SettingsContext';
 import { isSupabaseConfigured } from '../../lib/supabase';
 import { PWAInstallPrompt } from '../common/PWAInstallPrompt';
 import {
@@ -17,12 +18,13 @@ import {
   Database,
   Award,
   Sparkles,
-  Download
+  BarChart3
 } from 'lucide-react';
 
 export const AppLayout: React.FC = () => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { settings } = useSettings();
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -37,6 +39,7 @@ export const AppLayout: React.FC = () => {
     { label: 'Dashboard Overview', path: '/dashboard', icon: LayoutDashboard },
     { label: 'All Tour Bookings', path: '/bookings', icon: Ticket },
     { label: 'New Registration', path: '/bookings/new', icon: PlusCircle },
+    { label: 'Analytics & Reports', path: '/reports', icon: BarChart3 },
     { label: 'Company Settings', path: '/settings', icon: Settings },
   ];
 
@@ -47,9 +50,12 @@ export const AppLayout: React.FC = () => {
     if (path === '/bookings/new') return 'New Tour Voucher Registration';
     if (path.includes('/edit')) return 'Edit Booking Record';
     if (path.includes('/ticket')) return 'Official Travel Voucher & Boarding Pass';
+    if (path === '/reports') return 'Financial Analytics & Reports';
     if (path === '/settings') return 'Company Branding & Settings';
     return 'Dashboard';
   };
+
+  const logoSrc = settings.logo || '/logo-official.svg';
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
@@ -75,7 +81,7 @@ export const AppLayout: React.FC = () => {
 
           {/* Official Brand Identity */}
           <div className="flex items-center gap-3">
-            <img src="/logo-official.svg" alt="Thaibah Travels" className="h-9 object-contain" />
+            <img src={logoSrc} alt={settings.company_name} className="h-9 object-contain" />
             <span className="text-slate-300 hidden sm:inline">|</span>
             <h1 className="text-sm lg:text-base font-extrabold text-brand-900 dark:text-white tracking-tight hidden sm:block">
               {getPageTitle()}
@@ -145,8 +151,8 @@ export const AppLayout: React.FC = () => {
             <img src="/logo-icon.svg" alt="Thaibah Icon" className="w-8 h-8 shrink-0" />
             {sidebarOpen && (
               <div>
-                <div className="text-sm font-extrabold text-brand-900 dark:text-white tracking-wider font-display">
-                  THAIBAH TRAVELS
+                <div className="text-sm font-extrabold text-brand-900 dark:text-white tracking-wider font-display uppercase">
+                  {settings.company_name}
                 </div>
                 <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
                   Software Suite
@@ -186,7 +192,7 @@ export const AppLayout: React.FC = () => {
                 <span>Official Travel Portal</span>
               </div>
               <p className="text-[11px] text-slate-500 leading-snug">
-                Chenguvetty, Kottakkal, Malappuram, Kerala
+                {settings.footer_text || settings.address}
               </p>
             </div>
           )}
@@ -196,7 +202,7 @@ export const AppLayout: React.FC = () => {
         {mobileMenuOpen && (
           <div className="no-print lg:hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex flex-col">
             <div className="p-4 bg-white dark:bg-slate-900 flex items-center justify-between border-b border-slate-200">
-              <img src="/logo-official.svg" alt="Thaibah Logo" className="h-8" />
+              <img src={logoSrc} alt="Thaibah Logo" className="h-8" />
               <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-500">
                 <X className="w-6 h-6" />
               </button>
