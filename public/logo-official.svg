@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+
+  <!-- IATA / TAFI / IATO Accreditation Icons Top Right -->
+  <g transform="translate(260, 10)">
+    <!-- IATA Badge -->
+    <g transform="translate(0, 0)">
+      <path d="M5 12 L15 5 L25 12 L20 22 L10 22 Z" fill="#1E3A8A"/>
+      <circle cx="15" cy="13" r="6" fill="#FFFFFF"/>
+      <text x="15" y="16" font-family="sans-serif" font-size="6" font-weight="900" text-anchor="middle" fill="#1E3A8A">IATA</text>
+    </g>
+    <!-- TAFI Badge -->
+    <g transform="translate(45, 0)">
+      <rect x="0" y="5" width="28" height="18" fill="#DC2626" rx="2"/>
+      <text x="14" y="17" font-family="sans-serif" font-size="7" font-weight="900" text-anchor="middle" fill="#FFFFFF">TAFI</text>
+    </g>
+    <!-- IATO Badge -->
+    <g transform="translate(90, 0)">
+      <circle cx="12" cy="14" r="10" fill="#0284C7"/>
+      <text x="12" y="17" font-family="sans-serif" font-size="6" font-weight="900" text-anchor="middle" fill="#FFFFFF">IATO</text>
+    </g>
+  </g>
+
+  <!-- Main Wordmark: THAIBAH -->
+  <text x="10" y="105" font-family="'Cinzel', 'Times New Roman', Georgia, serif" font-size="72" font-weight="900" fill="#DC2626" letter-spacing="1">THAIBAH</text>
+
+  <!-- Green Underline Stripe -->
+  <polygon points="180,118 430,118 400,132 150,132" fill="#059669" />
+
+  <!-- Subtitle: TRAVELS -->
+  <text x="15" y="145" font-family="'Poppins', 'Inter', sans-serif" font-size="22" font-weight="800" fill="#334155" letter-spacing="6">TRAVELS</text>
+
+  <!-- Brand Emblem Badge (Green Slanted Polygon with Gold Umbrella/Dome Icon) -->
+  <g transform="translate(425, 45)">
+    <polygon points="15,0 85,0 70,85 0,85" fill="#059669" />
+    <circle cx="42" cy="42" r="30" fill="#FFFFFF" />
+    <circle cx="42" cy="42" r="26" fill="#059669" />
+    
+    <!-- Dome / Minaret Emblem -->
+    <path d="M 42 22 C 34 28 34 38 34 46 L 50 46 C 50 38 50 28 42 22 Z" fill="url(#goldGrad)"/>
+    <path d="M 38 46 L 46 46 L 46 58 L 38 58 Z" fill="url(#goldGrad)"/>
+    <circle cx="42" cy="20" r="3" fill="url(#goldGrad)"/>
+  </g>
+</svg>

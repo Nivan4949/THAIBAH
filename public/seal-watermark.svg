@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <circle cx="150" cy="150" r="140" fill="none" stroke="#D97706" stroke-width="4" stroke-dasharray="8 4" opacity="0.15"/>
+  <circle cx="150" cy="150" r="128" fill="none" stroke="#059669" stroke-width="3" opacity="0.15"/>
+  <circle cx="150" cy="150" r="116" fill="none" stroke="#1E3A8A" stroke-width="2" opacity="0.15"/>
+  
+  <path id="circlePath" d="M 50, 150 A 100,100 0 1,1 250,150 A 100,100 0 1,1 50,150" fill="none" />
+  
+  <text font-family="'Poppins', sans-serif" font-size="14" font-weight="800" fill="#1E3A8A" opacity="0.2" letter-spacing="4">
+    <textPath href="#circlePath" startOffset="50%" text-anchor="middle">
+      THAIBAH TRAVELS • OFFICIAL SEAL •
+    </textPath>
+  </text>
+  
+  <g transform="translate(110, 110)" opacity="0.18">
+    <path d="M 40 10 C 25 20 25 35 25 50 L 55 50 C 55 35 55 20 40 10 Z" fill="#D97706"/>
+    <rect x="32" y="50" width="16" height="20" fill="#D97706"/>
+    <circle cx="40" cy="7" r="4" fill="#059669"/>
+  </g>
+</svg>
