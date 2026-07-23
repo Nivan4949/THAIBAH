@@ -1,0 +1,34 @@
+{
+  "short_name": "Thaibah Travels",
+  "name": "Thaibah Travels — Booking Management System",
+  "icons": [
+    {
+      "src": "/logo-icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/dashboard",
+  "background_color": "#FFFFFF",
+  "theme_color": "#1E3A8A",
+  "display": "standalone",
+  "orientation": "any",
+  "description": "Commercial Tour Booking & Boarding Voucher Management Platform for Thaibah Travels",
+  "shortcuts": [
+    {
+      "name": "New Booking",
+      "short_name": "New Booking",
+      "description": "Create a new tour voucher registration",
+      "url": "/bookings/new",
+      "icons": [{ "src": "/logo-icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Bookings List",
+      "short_name": "Bookings",
+      "description": "View all tour bookings",
+      "url": "/bookings",
+      "icons": [{ "src": "/logo-icon.svg", "sizes": "192x192" }]
+    }
+  ]
+}

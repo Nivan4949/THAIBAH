@@ -3,6 +3,7 @@ import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { isSupabaseConfigured } from '../../lib/supabase';
+import { PWAInstallPrompt } from '../common/PWAInstallPrompt';
 import {
   LayoutDashboard,
   Ticket,
@@ -16,8 +17,7 @@ import {
   Database,
   Award,
   Sparkles,
-  Plane,
-  Bus
+  Download
 } from 'lucide-react';
 
 export const AppLayout: React.FC = () => {
@@ -53,6 +53,9 @@ export const AppLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
+      {/* Top Banner for PWA Install Prompt */}
+      <PWAInstallPrompt />
+
       {/* Top Navbar Header */}
       <header className="no-print h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 px-4 lg:px-6 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
